@@ -1,4 +1,4 @@
-package com.hmall.trade.listeners;
+package com.hmall.trade.listener;
 
 import com.hmall.trade.service.IOrderService;
 import lombok.RequiredArgsConstructor;
@@ -14,10 +14,10 @@ import org.springframework.stereotype.Component;
 public class PayStatusListener {
 
     private final IOrderService orderService;
-
+    //建立链接
     @RabbitListener(bindings = @QueueBinding(
-            value = @Queue(name = "mark.order.pay.queue", durable = "true"),
-            exchange = @Exchange(name = "pay.topic", type = ExchangeTypes.TOPIC),
+            value = @Queue(name = "order.success.pay.queue", durable = "true"),
+            exchange = @Exchange(name = "pay.direct"),
             key = "pay.success"
     ))
     public void listenOrderPay(Long orderId) {
